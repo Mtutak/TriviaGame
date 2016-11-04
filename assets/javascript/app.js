@@ -108,6 +108,7 @@ function checkEnd(){
 		$(".message").empty();
 		$(".message").append("THE END")
 		.append("<p> Correct Answers: " + game.correctAnswers + " Out of "+ game.gameStructure.length + "</p>")
+		.append("<p> Unanswered Questions: " + game.unanswered + "</p>");
 		currentQuestion = 0;
 	}
 
@@ -171,16 +172,23 @@ function checkCorrect(){
 		$(".message").append("YOU'RE CORRECT!")
 		.append("<p>Your answer is: " + correctAns + "</p>");
 
-	}else{
+	}else if (selection==undefined) {
+		var timeoutID = setTimeout(myTimer, 3000);
+		$(".message").append("TIME IS UP!!!")
+		.append("<p>The correct answer is: " + correctAns + "</p>")
+		.append("<img>");
+		game.unanswered++;
+
+	}
+	else{
 		var timeoutID = setTimeout(myTimer, 3000);
 		$(".message").append("YOU'RE WRONG!")
 		.append("<p>The correct answer is: " + correctAns + "</p>")
 		.append("<img>");
 
 		console.log("wrong!");
-
-
-		}
+	}
+		
 		function myTimer(){
 			$(".message").empty();
 			currentQuestion++;
